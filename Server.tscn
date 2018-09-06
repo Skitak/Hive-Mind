@@ -1,35 +1,11 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene format=2]
 
-[sub_resource type="GDScript" id=1]
-
-script/source = "extends Button
-
-# class member variables go here, for example:
-# var a = 2
-# var b = \"textvar\"
-
-func _ready():
-	var peer = NetworkedMultiplayerENet.new()
-	peer.create_server(SERVER_PORT, MAX_PLAYERS)
-	get_tree().set_network_peer(peer)
-	pass
-
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
-"
-
-[node name="Control" type="Control" index="0"]
+[node name="Control" type="Panel" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 255.0
-margin_top = 235.0
-margin_right = 669.0
-margin_bottom = 506.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -39,14 +15,14 @@ size_flags_vertical = 1
 
 [node name="Creer" type="Button" parent="." index="0"]
 
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 97.0
-margin_top = 30.0
-margin_right = 212.0
-margin_bottom = 50.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -148.0
+margin_top = -99.0
+margin_right = 145.0
+margin_bottom = -48.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -55,24 +31,25 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 toggle_mode = false
+action_mode = 0
 enabled_focus_mode = 2
 shortcut = null
 group = null
 text = "Creer Server"
 flat = false
 align = 1
-script = SubResource( 1 )
+_sections_unfolded = [ "Rect" ]
 
 [node name="Rejoindre" type="Button" parent="." index="1"]
 
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 96.0
-margin_top = 82.0
-margin_right = 213.0
-margin_bottom = 102.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -146.5
+margin_top = -25.5
+margin_right = 146.5
+margin_bottom = 25.5
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -87,5 +64,6 @@ group = null
 text = "Rejoindre Server"
 flat = false
 align = 1
+_sections_unfolded = [ "Rect" ]
 
 
