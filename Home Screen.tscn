@@ -1,4 +1,14 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://fonts/Montserrat-Regular.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=1]
+
+size = 56
+use_mipmaps = false
+use_filter = false
+font_data = ExtResource( 1 )
+_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
 [node name="Control" type="Panel" index="0"]
 
@@ -13,16 +23,16 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="Creer" type="Button" parent="." index="0"]
+[node name="Launch Game" type="Button" parent="." index="0"]
 
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -148.0
-margin_top = -99.0
+margin_top = 59.0
 margin_right = 145.0
-margin_bottom = -48.0
+margin_bottom = 110.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -35,35 +45,36 @@ action_mode = 0
 enabled_focus_mode = 2
 shortcut = null
 group = null
-text = "Creer Server"
+text = "Launch Game"
 flat = false
 align = 1
 _sections_unfolded = [ "Rect" ]
 
-[node name="Rejoindre" type="Button" parent="." index="1"]
+[node name="Label" type="Label" parent="." index="1"]
 
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -146.5
-margin_top = -25.5
-margin_right = 146.5
-margin_bottom = 25.5
+margin_left = -220.0
+margin_top = -239.0
+margin_right = 218.0
+margin_bottom = -79.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
+mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Rejoindre Server"
-flat = false
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 1 )
+text = "Hive Mind"
 align = 1
-_sections_unfolded = [ "Rect" ]
+valign = 1
+autowrap = true
+clip_text = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
 
 
