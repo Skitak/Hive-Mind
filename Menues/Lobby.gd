@@ -46,7 +46,7 @@ remote func register_player(id, info):
 func add_player_name():
 	var playerName = preload("res://Menues/Player Name.tscn").instance()
 	playerName.text = "Nouveau Joueur"
-	$Players.add(playerName)
+	$Players.add_child(playerName)
 
 remote func pre_configure_game():
 	get_tree().set_pause(true) # Pre-pause
