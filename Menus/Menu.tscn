@@ -398,7 +398,6 @@ max_lines_visible = -1
 
 [node name="Server infos" type="VBoxContainer" parent="Create server" index="1"]
 
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -664,7 +663,6 @@ to_node_path = "Lobby"
 
 [node name="Join server" type="Control" parent="." index="3"]
 
-editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0

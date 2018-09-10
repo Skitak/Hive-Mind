@@ -8,5 +8,4 @@ func _on_join_server():
 	
 	Network.server_ip = ip if ip else Network.SERVER_DEFAULT_IP 
 	Network.server_port = int(port) if port else Network.SERVER_DEFAULT_PORT
-	
 	Network.set_player_client()

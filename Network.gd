@@ -51,8 +51,8 @@ func _player_disconnected(id):
     player_info.erase(id) # Erase player from info
 
 func _connected_ok():
-    # Only called on clients, not server. Send my ID and info to all the other peers
-    rpc("register_player", get_tree().get_network_unique_id(), my_info)
+	# Only called on clients, not server. Send my ID and info to all the other peers
+	rpc("register_player", get_tree().get_network_unique_id(), my_info)
 
 func _server_disconnected():
     pass # Server kicked us, show error and abort
