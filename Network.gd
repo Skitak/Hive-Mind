@@ -1,16 +1,12 @@
 extends Node
 
-signal back
+var SERVER_PORT = 4445
+var SERVER_IP = "192.168.0.1"
+var MAX_PLAYERS = 4
 
-
-export var SERVER_PORT = 4445
-export var SERVER_IP = "192.168.0.1"
-export var MAX_PLAYERS = 4
-
-# Player info, associate ID to data
 var player_info = {}
 # Info we send to other players
-var my_info = { name = "John Johnson" }
+var my_info = {}
 
 func set_player_host():
 	var peer = NetworkedMultiplayerENet.new()
@@ -67,7 +63,7 @@ remote func register_player(id, info):
     #if player_info.size() == 
 
 func add_player_name(name):
-	var playerName = preload("res://Menues/Player Name.tscn").instance()
+	var playerName = preload("res://Menus/Utils/Player Name.tscn").instance()
 	playerName.text = name
 	$Players.add_child(playerName)
 
@@ -109,7 +105,8 @@ remote func done_preconfiguring(who):
 remote func post_configure_game():
     get_tree().set_pause(false)
     # Game starts now!
+	
+##### SIGNALS #####
 
-func _on_Return_button_down():
+func _on_quit_server():
 	get_tree().set_network_peer(null)
-	emit_signal("back")

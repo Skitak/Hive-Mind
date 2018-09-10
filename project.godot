@@ -11,8 +11,12 @@ config_version=3
 [application]
 
 config/name="Hive-Mind"
-run/main_scene="res://Menues/Menu.tscn"
+run/main_scene="res://Menus/Menu.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Network="*res://Network.gd"
 
 [display]
 
