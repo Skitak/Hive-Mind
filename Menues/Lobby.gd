@@ -2,6 +2,31 @@ extends Node
 
 signal back
 
+
+export var SERVER_PORT = 4445
+export var SERVER_IP = "192.168.0.1"
+export var MAX_PLAYERS = 4
+
+# Player info, associate ID to data
+var player_info = {}
+# Info we send to other players
+var my_info = { name = "John Johnson" }
+
+func set_player_host():
+	var peer = NetworkedMultiplayerENet.new()
+	peer.create_server(SERVER_PORT, MAX_PLAYERS)
+	get_tree().set_network_peer(peer)
+	add_player_name("Moi")
+	$Player_status.text = "Vous êtes l'hôte de la partie"
+	rpc("set_server_status","En attente d'autres joueurs")
+
+func set_player_client():
+	var peer = NetworkedMultiplayerENet.new()
+	peer.create_client(SERVER_IP, SERVER_PORT)
+	get_tree().set_network_peer(peer)
+	$Player_status.text = "Vous êtes client de la partie"
+	rpc("set_server_status","En attente d'autres joueurs")
+
 func _ready():
     get_tree().connect("network_peer_connected", self, "_player_connected")
     get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
@@ -9,11 +34,8 @@ func _ready():
     get_tree().connect("connection_failed", self, "_connected_fail")
     get_tree().connect("server_disconnected", self, "_server_disconnected")
 
-
-# Player info, associate ID to data
-var player_info = {}
-# Info we send to other players
-var my_info = { name = "John Johnson" }
+sync func set_server_status(status):
+	$Server_status.text = status
 
 func _player_connected(id):
     pass # Will go unused, not useful here
@@ -34,7 +56,7 @@ func _connected_fail():
 remote func register_player(id, info):
     # Store the info
     player_info[id] = info
-    add_player_name()
+    add_player_name("nouveau joueur")
     # If I'm the server, let the new guy know about existing players
     if get_tree().is_network_server():
         # Send my info to new player
@@ -42,10 +64,11 @@ remote func register_player(id, info):
         # Send the info of existing players
         for peer_id in player_info:
             rpc_id(id, "register_player", peer_id, player_info[peer_id])
+    #if player_info.size() == 
 
-func add_player_name():
+func add_player_name(name):
 	var playerName = preload("res://Menues/Player Name.tscn").instance()
-	playerName.text = "Nouveau Joueur"
+	playerName.text = name
 	$Players.add_child(playerName)
 
 remote func pre_configure_game():
@@ -88,4 +111,5 @@ remote func post_configure_game():
     # Game starts now!
 
 func _on_Return_button_down():
+	get_tree().set_network_peer(null)
 	emit_signal("back")

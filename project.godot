@@ -11,7 +11,7 @@ config_version=3
 [application]
 
 config/name="Hive-Mind"
-run/main_scene="res://Server.tscn"
+run/main_scene="res://Menues/Menu.tscn"
 config/icon="res://icon.png"
 
 [display]
