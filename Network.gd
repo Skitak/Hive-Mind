@@ -1,26 +1,37 @@
 extends Node
 
-var SERVER_PORT = 4445
-var SERVER_IP = "192.168.0.1"
-var MAX_PLAYERS = 4
+onready var lobby = get_tree().get_root().get_node("Menu/Lobby")
+
+var server_port = 4444
+var server_ip = "192.168.0.1"
+var server_name = "server name"
+var server_max_player = 4
+
+const SERVER_DEFAULT_IP = "192.168.0.1"
+const SERVER_DEFAULT_PORT = 4444
+var my_id = 1
 
 var player_info = {}
 # Info we send to other players
-var my_info = {}
+var my_info = {
+	name = "player"
+}
 
 func set_player_host():
 	var peer = NetworkedMultiplayerENet.new()
-	peer.create_server(SERVER_PORT, MAX_PLAYERS)
+	peer.create_server(server_port, server_max_player)
 	get_tree().set_network_peer(peer)
-	add_player_name("Moi")
-	$Player_status.text = "Vous êtes l'hôte de la partie"
+	player_info[my_id] = my_info
+	add_player_name(my_info.name)
+	lobby.get_node("Player_status").set_text("Vous êtes l'hôte de la partie")
 	rpc("set_server_status","En attente d'autres joueurs")
 
 func set_player_client():
 	var peer = NetworkedMultiplayerENet.new()
-	peer.create_client(SERVER_IP, SERVER_PORT)
+	peer.create_client(server_ip, server_port)
 	get_tree().set_network_peer(peer)
-	$Player_status.text = "Vous êtes client de la partie"
+	my_id = get_tree().get_network_unique_id()
+	lobby.get_node("Player_status").set_text("Vous êtes client de la partie")
 	rpc("set_server_status","En attente d'autres joueurs")
 
 func _ready():
@@ -31,7 +42,7 @@ func _ready():
     get_tree().connect("server_disconnected", self, "_server_disconnected")
 
 sync func set_server_status(status):
-	$Server_status.text = status
+	lobby.get_node("Server_status").set_text(status)
 
 func _player_connected(id):
     pass # Will go unused, not useful here
@@ -52,7 +63,7 @@ func _connected_fail():
 remote func register_player(id, info):
     # Store the info
     player_info[id] = info
-    add_player_name("nouveau joueur")
+    add_player_name(info.name)
     # If I'm the server, let the new guy know about existing players
     if get_tree().is_network_server():
         # Send my info to new player
@@ -65,7 +76,7 @@ remote func register_player(id, info):
 func add_player_name(name):
 	var playerName = preload("res://Menus/Utils/Player Name.tscn").instance()
 	playerName.text = name
-	$Players.add_child(playerName)
+	lobby.get_node("Player_container").add_child(playerName)
 
 remote func pre_configure_game():
 	get_tree().set_pause(true) # Pre-pause
@@ -105,8 +116,16 @@ remote func done_preconfiguring(who):
 remote func post_configure_game():
     get_tree().set_pause(false)
     # Game starts now!
+
+func player_changed_name(id, name):
+	player_info[id].name = name
+	var playerContainer = lobby.get_node("Player_container")
 	
+	lobby.empty_player_container()
+	for id in player_info:
+		add_player_name(player_info[id].name)
 ##### SIGNALS #####
 
-func _on_quit_server():
+func on_quit_server():
 	get_tree().set_network_peer(null)
+	lobby.empty_player_container()
