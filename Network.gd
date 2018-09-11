@@ -22,7 +22,7 @@ func set_player_host():
 	peer.create_server(server_port, server_max_player)
 	get_tree().set_network_peer(peer)
 	player_info[my_id] = my_info
-	add_player_name(my_info.name)
+	lobby.add_player_name(my_info.name)
 	lobby.get_node("Player_status").set_text("Vous êtes l'hôte de la partie")
 	rpc("set_server_status","En attente d'autres joueurs")
 
@@ -63,7 +63,7 @@ func _connected_fail():
 remote func register_player(id, info):
     # Store the info
     player_info[id] = info
-    add_player_name(info.name)
+    lobby.add_player_name(info.name)
     # If I'm the server, let the new guy know about existing players
     if get_tree().is_network_server():
         # Send my info to new player
@@ -72,11 +72,6 @@ remote func register_player(id, info):
         for peer_id in player_info:
             rpc_id(id, "register_player", peer_id, player_info[peer_id])
     #if player_info.size() == 
-
-func add_player_name(name):
-	var playerName = preload("res://Menus/Utils/Player Name.tscn").instance()
-	playerName.text = name
-	lobby.get_node("Player_container").add_child(playerName)
 
 remote func pre_configure_game():
 	get_tree().set_pause(true) # Pre-pause
@@ -120,10 +115,12 @@ remote func post_configure_game():
 func player_changed_name(id, name):
 	player_info[id].name = name
 	var playerContainer = lobby.get_node("Player_container")
-	
+	refresh_player_names()
+
+func refresh_player_names():
 	lobby.empty_player_container()
 	for id in player_info:
-		add_player_name(player_info[id].name)
+		lobby.add_player_name(player_info[id].name)
 ##### SIGNALS #####
 
 func on_quit_server():

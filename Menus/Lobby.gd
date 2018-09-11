@@ -19,3 +19,8 @@ sync func player_changed_name(id, name):
 func empty_player_container():
 	for i in range(0, $Player_container.get_child_count()):
 		$Player_container.get_child(i).queue_free()
+
+func add_player_name(name):
+	var playerName = preload("res://Menus/Utils/Player Name.tscn").instance()
+	playerName.text = name
+	$Player_container.add_child(playerName)
