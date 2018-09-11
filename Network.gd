@@ -79,9 +79,12 @@ remote func register_player(id, info):
         # Send the info of existing players
 		for peer_id in player_info:
 			rpc_id(id, "register_player", peer_id, player_info[peer_id])
-	if player_info.size() == server_max_player:
-		lobby.get_node("Ready").disabled = false
+		if player_info.size() == server_max_player:
+			rpc("_wait_for_client")
+		
 
+remote func _wait_for_client():
+	lobby.get_node("Ready").disabled = false
 #remote func pre_configure_game():
 #	get_tree().set_pause(true) # Pre-pause
 #	var selfPeerID = get_tree().get_network_unique_id()
@@ -141,7 +144,7 @@ var players_done = []
 sync func player_ready(id):
 	if not players_done.has(id):
 		players_done.append(id)
-		if players_done.length() == server_max_player:
+		if get_tree().is_network_server() and players_done.length() == server_max_player:
 			lobby.get_node("Play").disabled = false
 	else :
 		players_done.remove(players_done.find(id))
