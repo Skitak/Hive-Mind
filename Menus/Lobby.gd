@@ -1,7 +1,6 @@
 extends Node
 
 func _on_Return_button_down():
-	print("ji")
 	Network.on_quit_server() # replace with function body
 
 
