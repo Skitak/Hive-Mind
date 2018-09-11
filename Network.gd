@@ -26,7 +26,7 @@ func set_player_host():
 	lobby.add_player_name(my_info.name)
 	lobby.get_node("Player_status").set_text("Vous êtes l'hôte de la partie")
 	lobby.get_node("Play").show()
-	rpc("set_server_status","En attente d'autres joueurs")
+	rpc("_set_server_status","En attente d'autres joueurs")
 
 func set_player_client():
 	var peer = NetworkedMultiplayerENet.new()
@@ -35,7 +35,7 @@ func set_player_client():
 	my_id = get_tree().get_network_unique_id()
 	lobby.get_node("Player_status").set_text("Vous êtes client de la partie")
 	lobby.get_node("Ready").show()
-	rpc("set_server_status","En attente d'autres joueurs")
+	rpc("_set_server_status","En attente d'autres joueurs")
 
 func _ready():
     get_tree().connect("network_peer_connected", self, "_player_connected")
@@ -44,7 +44,7 @@ func _ready():
     get_tree().connect("connection_failed", self, "_connected_fail")
     get_tree().connect("server_disconnected", self, "_server_disconnected")
 
-sync func set_server_status(status):
+sync func _set_server_status(status):
 	lobby.get_node("Server_status").set_text(status)
 
 func _player_connected(id):
@@ -56,7 +56,7 @@ func _player_disconnected(id):
 	if players_done.has(id):
 		players_done.remove(players_done.find(id))
 	lobby.get_node("Play").disabled = true
-	rpc("set_server_status", "En attente d'autres joueurs")
+	rpc("_set_server_status", "En attente d'autres joueurs")
 	refresh_player_names()
 
 func _connected_ok():
@@ -88,6 +88,8 @@ remote func register_player(id, info):
 
 remote func _wait_for_client():
 	lobby.get_node("Ready").disabled = false
+	rpc("_set_server_status", "Préparation des joueurs")
+	
 #remote func pre_configure_game():
 #	get_tree().set_pause(true) # Pre-pause
 #	var selfPeerID = get_tree().get_network_unique_id()
@@ -149,9 +151,11 @@ sync func player_ready(id):
 		players_done.append(id)
 		if get_tree().is_network_server() and players_done.size() == server_max_player - 1:
 			lobby.get_node("Play").disabled = false
+			rpc("_set_server_status", "En attente de l'hôte")
 	else :
 		players_done.remove(players_done.find(id))
 		lobby.get_node("Play").disabled = true
+		rpc("_set_server_status", "Préparation des joueurs")
 
 sync func launch_game():
 	print("do smtng")
