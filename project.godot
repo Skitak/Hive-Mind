@@ -11,7 +11,7 @@ config_version=3
 [application]
 
 config/name="Hive-Mind"
-run/main_scene="res://Menus/Menu.tscn"
+run/main_scene="res://GameManager.tscn"
 config/icon="res://icon.png"
 
 [autoload]

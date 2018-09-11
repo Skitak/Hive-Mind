@@ -6,7 +6,8 @@
 [node name="GameManager" type="Node" index="0"]
 
 script = ExtResource( 1 )
-world = ""
+world_path = "res://BaseEntity/Player.tscn"
+player_path = "res://World/World.tscn"
 
 [node name="Menu" parent="." index="0" instance=ExtResource( 2 )]
 
