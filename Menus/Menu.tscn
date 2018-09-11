@@ -289,6 +289,7 @@ _sections_unfolded = [ "Caret", "Placeholder", "Rect" ]
 [node name="Home" type="Control" parent="." index="1"]
 
 editor/display_folded = true
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -661,8 +662,6 @@ to_node_path = "Lobby"
 
 [node name="Join server" type="Control" parent="." index="3"]
 
-editor/display_folded = true
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -703,6 +702,7 @@ max_lines_visible = -1
 
 [node name="Server infos" type="VBoxContainer" parent="Join server" index="1"]
 
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -870,6 +870,28 @@ margin_right = 730.0
 margin_bottom = 555.0
 text = "Next"
 to_node_path = "Lobby"
+
+[node name="Erreur" type="Label" parent="Join server" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 88.0
+margin_top = 459.0
+margin_right = 283.0
+margin_bottom = 500.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_colors/font_color = Color( 0.878906, 0.466919, 0.466919, 1 )
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors" ]
 
 [connection signal="button_down" from="Lobby/Return" to="Lobby" method="_on_Return_button_down"]
 

@@ -1,6 +1,7 @@
 extends Node
 
 onready var lobby = get_tree().get_root().get_node("Menu/Lobby")
+onready var menu = get_tree().get_root().get_node("Menu")
 
 var server_port = 4444
 var server_ip = "192.168.0.1"
@@ -48,17 +49,20 @@ func _player_connected(id):
     pass # Will go unused, not useful here
 
 func _player_disconnected(id):
-    player_info.erase(id) # Erase player from info
+	player_info.erase(id) # Erase player from info
+	refresh_player_names()
 
 func _connected_ok():
 	# Only called on clients, not server. Send my ID and info to all the other peers
 	rpc("register_player", get_tree().get_network_unique_id(), my_info)
 
 func _server_disconnected():
-    pass # Server kicked us, show error and abort
+	menu.back()
+	menu.get_node("Join server/Erreur").set_text("Le serveur a été déconnecté.")
 
 func _connected_fail():
-    pass # Could not even connect to server, abort
+	menu.back()
+	menu.get_node("Join server/Erreur").set_text("Nous n'avons pas pu vous connecter au serveur.")
 
 remote func register_player(id, info):
     # Store the info
