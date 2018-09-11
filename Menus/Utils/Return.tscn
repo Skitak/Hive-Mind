@@ -15,7 +15,7 @@ _sections_unfolded = [ "Font", "Settings" ]
 script/source = "extends Node
 
 func _on_Return_button_down():
-	get_node(\"/root/Menu\").back()
+	get_parent().owner.back()
 "
 
 [node name="Return" type="Button"]

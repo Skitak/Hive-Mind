@@ -45,6 +45,3 @@ func on_player_ready():
 		$Ready_image.show()
 		is_player_ready = true
 
-func _on_Play_button_down():
-	Network.rpc("launch_game")
-	pass # replace with function body

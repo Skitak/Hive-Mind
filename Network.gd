@@ -1,7 +1,7 @@
 extends Node
 
-onready var lobby = get_tree().get_root().get_node("Menu/Lobby")
-onready var menu = get_tree().get_root().get_node("Menu")
+var menu = null
+var lobby = null
 
 var server_port = 4444
 var server_ip = "192.168.0.1"
@@ -156,6 +156,3 @@ sync func player_ready(id):
 		players_done.remove(players_done.find(id))
 		lobby.get_node("Play").disabled = true
 		rpc("_set_server_status", "Préparation des joueurs")
-
-sync func launch_game():
-	print("do smtng")

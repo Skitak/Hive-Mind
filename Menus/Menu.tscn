@@ -262,6 +262,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 texture = ExtResource( 4 )
 expand = true
+stretch_mode = 0
 
 [node name="Return" parent="Lobby" index="8" instance=ExtResource( 5 )]
 
@@ -944,7 +945,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_colors" ]
 
-[connection signal="button_down" from="Lobby/Play" to="Lobby" method="_on_Play_button_down"]
+[connection signal="button_down" from="Lobby/Play" to="." method="_on_Play_button_down"]
 
 [connection signal="button_down" from="Lobby/Ready" to="Lobby" method="on_player_ready"]
 
