@@ -7,7 +7,7 @@ var server_ip = "192.168.0.1"
 var server_name = "server name"
 var server_max_player = 4
 
-const SERVER_DEFAULT_IP = "192.168.0.1"
+const SERVER_DEFAULT_IP = "192.168.1.52"
 const SERVER_DEFAULT_PORT = 4444
 var my_id = 1
 
