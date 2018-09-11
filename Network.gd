@@ -53,7 +53,7 @@ func _player_disconnected(id):
 	refresh_player_names()
 
 func _connected_ok():
-	# Only called on clients, not server. Send my ID and info to all the other peers
+	menu.get_node("Join server/Erreur").set_text("")
 	rpc("register_player", get_tree().get_network_unique_id(), my_info)
 
 func _server_disconnected():
