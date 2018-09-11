@@ -53,7 +53,10 @@ func _player_connected(id):
 func _player_disconnected(id):
 	player_info.erase(id) # Erase player from info
 	lobby.get_node("Ready").disabled = true
+	if players_done.has(id):
+		players_done.remove(players_done.find(id))
 	lobby.get_node("Play").disabled = true
+	rpc("set_server_status", "En attente d'autres joueurs")
 	refresh_player_names()
 
 func _connected_ok():
@@ -144,8 +147,11 @@ var players_done = []
 sync func player_ready(id):
 	if not players_done.has(id):
 		players_done.append(id)
-		if get_tree().is_network_server() and players_done.size == server_max_player - 1:
+		if get_tree().is_network_server() and players_done.size() == server_max_player - 1:
 			lobby.get_node("Play").disabled = false
 	else :
 		players_done.remove(players_done.find(id))
 		lobby.get_node("Play").disabled = true
+
+sync func launch_game():
+	print("do smtng")

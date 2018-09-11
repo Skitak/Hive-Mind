@@ -944,6 +944,8 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_colors" ]
 
+[connection signal="button_down" from="Lobby/Play" to="Lobby" method="_on_Play_button_down"]
+
 [connection signal="button_down" from="Lobby/Ready" to="Lobby" method="on_player_ready"]
 
 [connection signal="button_down" from="Lobby/Return" to="Lobby" method="_on_Return_button_down"]
