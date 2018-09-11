@@ -66,8 +66,6 @@ remote func register_player(id, info):
     lobby.add_player_name(info.name)
     # If I'm the server, let the new guy know about existing players
     if get_tree().is_network_server():
-        # Send my info to new player
-        rpc_id(id, "register_player", 1, my_info)
         # Send the info of existing players
         for peer_id in player_info:
             rpc_id(id, "register_player", peer_id, player_info[peer_id])

@@ -106,10 +106,10 @@ anchor_left = 1.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_left = -458.0
-margin_top = 109.0
-margin_right = -323.0
-margin_bottom = 136.0
+margin_left = -461.0
+margin_top = 119.0
+margin_right = -326.0
+margin_bottom = 146.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -117,7 +117,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 text = "You are hosting"
-valign = 2
+valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -128,21 +128,23 @@ anchor_left = 1.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_left = -267.0
-margin_top = 57.0
-margin_right = -91.0
-margin_bottom = 73.0
+margin_left = -200.0
+margin_top = 60.0
+margin_right = -24.0
+margin_bottom = 76.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-text = "You are hosting"
-valign = 2
+custom_colors/font_color = Color( 0.949219, 0.430115, 0.430115, 1 )
+align = 1
+valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+_sections_unfolded = [ "custom_colors" ]
 
 [node name="Server_status" type="Label" parent="Lobby" index="3"]
 
@@ -150,10 +152,10 @@ anchor_left = 0.0
 anchor_top = 1.0
 anchor_right = 0.0
 anchor_bottom = 1.0
-margin_left = 541.0
-margin_top = -19.0
-margin_right = 713.0
-margin_bottom = 6.0
+margin_left = 543.0
+margin_top = -37.0
+margin_right = 715.0
+margin_bottom = -12.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -216,7 +218,6 @@ align = 1
 
 [node name="Player name" type="HBoxContainer" parent="Lobby" index="7"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -265,8 +266,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 78.0
-margin_right = 228.0
+margin_left = 125.0
+margin_right = 275.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 150, 0 )
 rect_pivot_offset = Vector2( 0, 0 )
@@ -290,12 +291,8 @@ _sections_unfolded = [ "Caret", "Placeholder", "Rect" ]
 editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 793.0
-margin_bottom = 593.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -357,6 +354,7 @@ to_node_path = "Join server"
 
 [node name="Create server" type="Control" parent="." index="2"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -557,6 +555,7 @@ caret_position = 0
 
 [node name="Server max player" type="HBoxContainer" parent="Create server/Server infos" index="2"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
