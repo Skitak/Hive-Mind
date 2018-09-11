@@ -5,7 +5,7 @@ export var player_path = "res://World/World.tscn"
 var players = {}
 
 sync func _on_menu_play():
-	queue_free($Menu)
+	$Menu.queue_free()
 	
 	var player_model = load(player_path)
 	var world = load(world_path).instance()
@@ -23,5 +23,7 @@ sync func _on_menu_play():
 			player.name = Network.player_info[p].name
 			players.append(player)
 			world.add_child(player)
+	if get_tree().is_network_server():
+		rpc("_on_menu_play")
 	
 	
