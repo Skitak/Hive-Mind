@@ -2,9 +2,9 @@ extends Node
 
 export var world_path = "res://BaseEntity/Player.tscn"
 export var player_path = "res://World/World.tscn"
-var players = {}
+var players = []
 
-sync func _on_menu_play():
+remote func _on_menu_play():
 	$Menu.queue_free()
 	
 	var player_model = load(player_path)
