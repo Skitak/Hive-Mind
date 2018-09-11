@@ -3,6 +3,7 @@ extends Control
 
 
 func _on_join_server():
+	get_node("Erreur").set_text("")
 	var ip = $"Server infos/Server ip/Edit server ip".get_text()
 	var port = $"Server infos/Server port/Edit server port".get_text()
 	

@@ -25,6 +25,7 @@ func set_player_host():
 	player_info[my_id] = my_info
 	lobby.add_player_name(my_info.name)
 	lobby.get_node("Player_status").set_text("Vous êtes l'hôte de la partie")
+	lobby.get_node("Play").show()
 	rpc("set_server_status","En attente d'autres joueurs")
 
 func set_player_client():
@@ -33,6 +34,7 @@ func set_player_client():
 	get_tree().set_network_peer(peer)
 	my_id = get_tree().get_network_unique_id()
 	lobby.get_node("Player_status").set_text("Vous êtes client de la partie")
+	lobby.get_node("Ready").show()
 	rpc("set_server_status","En attente d'autres joueurs")
 
 func _ready():
@@ -50,69 +52,73 @@ func _player_connected(id):
 
 func _player_disconnected(id):
 	player_info.erase(id) # Erase player from info
+	lobby.get_node("Ready").disabled = true
+	lobby.get_node("Play").disabled = true
 	refresh_player_names()
 
 func _connected_ok():
-	menu.get_node("Join server/Erreur").set_text("")
+	lobby.empty_player_container()
 	rpc("register_player", get_tree().get_network_unique_id(), my_info)
 
 func _server_disconnected():
 	menu.back()
+	lobby.reset_lobby()
 	menu.get_node("Join server/Erreur").set_text("Le serveur a été déconnecté.")
 
 func _connected_fail():
 	menu.back()
+	lobby.reset_lobby()
 	menu.get_node("Join server/Erreur").set_text("Nous n'avons pas pu vous connecter au serveur.")
 
 remote func register_player(id, info):
     # Store the info
-    player_info[id] = info
-    lobby.add_player_name(info.name)
+	player_info[id] = info
+	lobby.add_player_name(info.name)
     # If I'm the server, let the new guy know about existing players
-    if get_tree().is_network_server():
+	if get_tree().is_network_server():
         # Send the info of existing players
-        for peer_id in player_info:
-            rpc_id(id, "register_player", peer_id, player_info[peer_id])
-    #if player_info.size() == 
+		for peer_id in player_info:
+			rpc_id(id, "register_player", peer_id, player_info[peer_id])
+	if player_info.size() == server_max_player:
+		lobby.get_node("Ready").disabled = false
 
-remote func pre_configure_game():
-	get_tree().set_pause(true) # Pre-pause
-	var selfPeerID = get_tree().get_network_unique_id()
-
-    # Load world
-	var world = load("res://World/World.tscn").instance()
-	get_node("/root").add_child(world)
-
-    # Load my player
-	var my_player = preload("res://BaseEntity/Player.tscn").instance()
-	my_player.set_name(str(selfPeerID))
-	my_player.set_network_master(selfPeerID) # Will be explained later
-	get_node("/root/world/players").add_child(my_player)
-
-    # Load other players
-	for p in player_info:
-		var player = preload("res://BaseEntity/Player.tscn").instance()
-		player.set_name(str(p))
-		get_node("/root/world/players").add_child(player)
-
-    # Tell server (remember, server is always ID=1) that this peer is done pre-configuring
-	rpc_id(1, "done_preconfiguring", selfPeerID)
-
-var players_done = []
-remote func done_preconfiguring(who):
-    # Here is some checks you can do, as example
-    assert(get_tree().is_network_server())
-    assert(who in player_info) # Exists
-    assert(not who in players_done) # Was not added yet
-
-    players_done.append(who)
-
-    if players_done.size() == player_info.size():
-        rpc("post_configure_game")
-
-remote func post_configure_game():
-    get_tree().set_pause(false)
-    # Game starts now!
+#remote func pre_configure_game():
+#	get_tree().set_pause(true) # Pre-pause
+#	var selfPeerID = get_tree().get_network_unique_id()
+#
+#    # Load world
+#	var world = load("res://World/World.tscn").instance()
+#	get_node("/root").add_child(world)
+#
+#    # Load my player
+#	var my_player = preload("res://BaseEntity/Player.tscn").instance()
+#	my_player.set_name(str(selfPeerID))
+#	my_player.set_network_master(selfPeerID) # Will be explained later
+#	get_node("/root/world/players").add_child(my_player)
+#
+#    # Load other players
+#	for p in player_info:
+#		var player = preload("res://BaseEntity/Player.tscn").instance()
+#		player.set_name(str(p))
+#		get_node("/root/world/players").add_child(player)
+#
+#    # Tell server (remember, server is always ID=1) that this peer is done pre-configuring
+#	rpc_id(1, "done_preconfiguring", selfPeerID)
+#
+#remote func done_preconfiguring(who):
+#    # Here is some checks you can do, as example
+#    assert(get_tree().is_network_server())
+#    assert(who in player_info) # Exists
+#    assert(not who in players_done) # Was not added yet
+#
+#    players_done.append(who)
+#
+#    if players_done.size() == player_info.size():
+#        rpc("post_configure_game")
+#
+#remote func post_configure_game():
+#    get_tree().set_pause(false)
+#    # Game starts now!
 
 func player_changed_name(id, name):
 	player_info[id].name = name
@@ -128,3 +134,15 @@ func refresh_player_names():
 func on_quit_server():
 	get_tree().set_network_peer(null)
 	lobby.empty_player_container()
+	
+var players_done = []
+
+
+sync func player_ready(id):
+	if not players_done.has(id):
+		players_done.append(id)
+		if players_done.length() == server_max_player:
+			lobby.get_node("Play").disabled = false
+	else :
+		players_done.remove(players_done.find(id))
+		lobby.get_node("Play").disabled = true
