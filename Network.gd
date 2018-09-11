@@ -144,7 +144,7 @@ var players_done = []
 sync func player_ready(id):
 	if not players_done.has(id):
 		players_done.append(id)
-		if get_tree().is_network_server() and players_done.length() == server_max_player:
+		if get_tree().is_network_server() and players_done.size == server_max_player - 1:
 			lobby.get_node("Play").disabled = false
 	else :
 		players_done.remove(players_done.find(id))
