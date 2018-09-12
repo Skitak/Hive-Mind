@@ -6,5 +6,5 @@ var editor = null
 func _ready():
 	is_compressible = true
 
-func get_editor():2
+func get_editor():
 	return editor

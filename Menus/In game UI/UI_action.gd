@@ -1,6 +1,7 @@
 extends Control
 
-export (Texture) var action_image
+# Is created in UI_game
+
 var action
 
 func _ready():
@@ -8,4 +9,7 @@ func _ready():
 
 func set_action(action):
 	self.action = action
-	# Do stuff
+	$TextureRect.texture = action.icon
+
+func _on_button_down():
+	action.get_editor().edit()

@@ -17,10 +17,15 @@ config/icon="res://icon.png"
 [autoload]
 
 Network="*res://Network.gd"
+Action_manager="*res://BaseEntity/Actions/Action_manager.tscn"
+Time_manager="*res://Time_manager.tscn"
+Notifications="*res://Menus/Notifications.tscn"
 
 [display]
 
-window/size/width=800
+window/size/width=1280
+window/size/height=720
+window/stretch/aspect="keep"
 
 [rendering]
 
