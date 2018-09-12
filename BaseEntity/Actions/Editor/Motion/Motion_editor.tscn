@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://BaseEntity/Actions/Editor/Motion/Motion_editor.gd" type="Script" id=1]
+
+[node name="Motion_editor" type="Node" index="0"]
+
+script = ExtResource( 1 )
+action_path = ""
+
+

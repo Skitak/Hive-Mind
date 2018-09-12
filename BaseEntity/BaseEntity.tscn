@@ -1,15 +1,16 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://BaseEntity/BaseEntity.gd" type="Script" id=1]
-[ext_resource path="res://Timelines/Timeline.tscn" type="PackedScene" id=2]
+[ext_resource path="res://BaseEntity/Timeline.tscn" type="PackedScene" id=2]
 
-[node name="BaseEntity" type="KinematicBody2D"]
+[node name="BaseEntity" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
+profile = null
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="." index="0"]
 

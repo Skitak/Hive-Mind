@@ -18,16 +18,16 @@ func _on_Return_button_down():
 	get_parent().owner.back()
 "
 
-[node name="Return" type="Button"]
+[node name="Return" type="Button" index="0"]
 
 anchor_left = 0.0
-anchor_top = 0.0
+anchor_top = 1.0
 anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 87.0
-margin_top = 503.0
-margin_right = 299.0
-margin_bottom = 556.0
+anchor_bottom = 1.0
+margin_left = 121.0
+margin_top = -115.0
+margin_right = 333.0
+margin_bottom = -62.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2

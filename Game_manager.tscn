@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://GameManager.gd" type="Script" id=1]
+[ext_resource path="res://Menus/Home/Menu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Menus/In game UI/UI_game.tscn" type="PackedScene" id=3]
+
+[node name="GameManager" type="Node" index="0"]
+
+script = ExtResource( 1 )
+world_path = "res://BaseEntity/Player.tscn"
+player_path = "res://World/World.tscn"
+
+[node name="Menu" parent="." index="0" instance=ExtResource( 2 )]
+
+[node name="UI_game" parent="." index="1" instance=ExtResource( 3 )]
+
+visible = false
+
+[connection signal="on_play" from="Menu" to="." method="_on_menu_play"]
+
+

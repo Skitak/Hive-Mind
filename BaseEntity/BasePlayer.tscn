@@ -16,22 +16,23 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
-extents = Vector2( 50.1747, 49.6967 )
+extents = Vector2( 20.0433, 22.9083 )
 
-[node name="BaseEntity" instance=ExtResource( 1 )]
+[node name="BaseEntity" index="0" instance=ExtResource( 1 )]
 
+position = Vector2( 258.472, 131.957 )
 script = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="AnimatedSprite" parent="." index="0"]
 
+scale = Vector2( 0.4, 0.4 )
 frames = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="CollisionShape2D" parent="." index="1"]
 
-position = Vector2( 0, 33.3209 )
-scale = Vector2( 1, 1.1382 )
+position = Vector2( 0, 13.3908 )
 shape = SubResource( 2 )
 _sections_unfolded = [ "Transform" ]
 

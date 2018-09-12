@@ -1,15 +1,28 @@
 extends KinematicBody2D
 
-var health
-var speed
-var action_speed
-var attack
-var defense
-var weapon = {}
+signal health_modified
+signal state_modified
+
+var health = 200
+var max_health = 300
+var speed = 200
+var action_speed = 2
+var attack = 20
+var defense = 20
+var weapons = {}
+const action_path = "res://BaseEntity/Actions/"
+var actions = {
+	"motion" : [
+		"Motions/Movement.tscn"
+	],
+	"action" : [
+		
+	]
+}
+export (Texture) var profile
+var state
 
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	pass
 
 #func _process(delta):
